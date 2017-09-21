@@ -2,11 +2,11 @@
   "name": "carriable",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "0.9.5",
-    "mysql": "^2.0.0"
+    "react-scripts": "0.9.5"
   },
   "devDependencies": {},
   "scripts": {

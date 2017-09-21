@@ -14,9 +14,17 @@ class EntryForm extends Component {
     this.regionChange = this.regionChange.bind(this);
   }
 
-  handleSubmit(event) {
-    //alert('Summoner submitted: ' + this.state.summoner + ' in ' + this.state.region);
+  writeToDb(summoner, region) {
+    console.log('attempting to contact api');
+    fetch(`/test?summoner=${summoner}&region=${region}`, {
+      accept: 'application/json',
+    });
+  }
 
+  handleSubmit(event) {
+    console.log('handling submit');
+    //alert('Summoner submitted: ' + this.state.summoner + ' in ' + this.state.region);
+    this.writeToDb(this.state.summoner, this.state.region);
     //This will need to send the data from the form to a database.
 
     event.preventDefault();
