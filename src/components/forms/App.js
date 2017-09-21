@@ -6,9 +6,12 @@ class EntryForm extends Component {
     super(props);
     this.state = {
       summoner: '',
-      region: 'NA'
+      region: 'NA1'
     };
     
+    //Regex given by Riot to check validity of summoner names
+    this.summonerNameCheck = "^[0-9\\p{L} _\\.]+$";
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.summonerChange = this.summonerChange.bind(this);
     this.regionChange = this.regionChange.bind(this);
@@ -46,9 +49,18 @@ class EntryForm extends Component {
           </div>
           <div className="RegionDropdown">
             <select id="region" value={this.state.region} onChange={this.regionChange}>
-              <option value="NA">NA</option>
-              <option value="EUE">EUE</option>
-              <option value="EUW">EUW</option>
+              <option value="BR1">BR</option>
+              <option value="EUN1">EUNE</option>
+              <option value="EUW1">EUW</option>
+              <option value="JP1">JP</option>
+              <option value="KR">KR</option>
+              <option value="LA1">LAN</option>
+              <option value="LA2">LAS</option>
+              <option value="NA1">NA</option>
+              <option value="OC1">OCE</option>
+              <option value="TR1">TR</option>
+              <option value="RU">RU</option>
+              <option value="PBE1">PBE</option>
             </select>
           </div>
           <input type="submit" value="Submit" />
