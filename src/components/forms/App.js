@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '../../style/App.css';
 
 class EntryForm extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class EntryForm extends Component {
   }
 
   handleSubmit(event) {
-    // alert('Summoner submitted: ' + this.state.summoner + ' in ' + this.state.region);
+    //alert('Summoner submitted: ' + this.state.summoner + ' in ' + this.state.region);
 
     //This will need to send the data from the form to a database.
 
@@ -51,10 +50,10 @@ class EntryForm extends Component {
   }
 }
 
-class App extends Component {
+class SummonerEntryForm extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="SummonerEntryForm">
         <div className="App-header">
           <h2>Let's get carried!</h2>
           <EntryForm></EntryForm>
@@ -64,4 +63,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default SummonerEntryForm;
