@@ -17,6 +17,7 @@ class EntryForm extends Component {
     this.regionChange = this.regionChange.bind(this);
   }
 
+  //Send form data to node js api
   writeToDb(summoner, region) {
     console.log('attempting to contact api');
     fetch(`/test?summoner=${summoner}&region=${region}`, {
@@ -24,6 +25,7 @@ class EntryForm extends Component {
     });
   }
 
+  //Submit form data
   handleSubmit(event) {
     console.log('handling submit');
     //alert('Summoner submitted: ' + this.state.summoner + ' in ' + this.state.region);
@@ -40,6 +42,7 @@ class EntryForm extends Component {
   regionChange(event) {
     this.setState({region: event.target.value});
   }
+  
   render() {
     return (
       <div>
