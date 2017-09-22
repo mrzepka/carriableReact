@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../../style/App.css';
+import '../../style/SummonerEntryForm.css';
+
 
 class EntryForm extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class EntryForm extends Component {
   //Send form data to node js api
   writeToDb(summoner, region) {
     console.log('attempting to contact api');
-    fetch(`/test?summoner=${summoner}&region=${region}`, {
+    fetch(`/api/formData?summoner=${summoner}&region=${region}`, {
       accept: 'application/json',
     });
   }
@@ -42,11 +43,11 @@ class EntryForm extends Component {
   regionChange(event) {
     this.setState({region: event.target.value});
   }
-  
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="formContainer">
           <div className="SummonerInput">
             <input type="text" id="summoner_name" placeholder="SummonerName" onChange={this.summonerChange}></input>
           </div>
@@ -76,11 +77,8 @@ class EntryForm extends Component {
 class SummonerEntryForm extends Component {
   render() {
     return (
-      <div className="SummonerEntryForm">
-        <div className="App-header">
-          <h2>Let's get carried!</h2>
-          <EntryForm></EntryForm>
-        </div>
+      <div className="SummonerEntryForm"> 
+        <EntryForm></EntryForm>
       </div>
     );
   }

@@ -4,10 +4,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SummonerEntryForm from './components/forms/App.js';
+import App from './components/display/App.js';
 import './style/index.css';
 
 ReactDOM.render(
-  <SummonerEntryForm />,
+  <App />,
   document.getElementById('root')
 );

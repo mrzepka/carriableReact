@@ -1,0 +1,13 @@
+form {
+  text-align: center;
+}
+
+.SummonerInput {
+  display: inline;
+}
+
+.RegionDropdown {
+  display: inline;
+  background: transparent;
+  font-size: 14px;
+}

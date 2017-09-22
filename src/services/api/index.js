@@ -11,14 +11,18 @@ app.use(bodyParser.json());
 
 //Allow React to make request to send us
 //form data.
-app.get('/test', (req, res) => {
-    console.log('hit test api');
-    // console.log(req);
+app.get('/api/formData', (req, res) => {
     const summoner = req.query.summoner;
     const region = req.query.region;
     riot.getPlayerData(summoner, region);
     res.sendStatus(200);
 });
+
+//TODO: add request to get data from database "getRankData?"
+
+//TODO: add request to send data to database "writeRankData?"
+
+//TODO: add request to get player data from api calls "getPlayerData?"
 
 //Spool up server
 app.listen(3001, () => {
