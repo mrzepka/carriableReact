@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const riot = require('../riot_api_interactions.js');
-const keys = require('../riot_config.json');
 
 const app = express();
 

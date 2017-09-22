@@ -1,7 +1,6 @@
 //riot_api_interactions.js
 //Contains all Riot Games API calls
 const request = require('request');
-const mysql = require('mysql');
 const config = require( "./riot_config.js");
 
 //Note: Region goes at the beginning of the url
@@ -10,23 +9,48 @@ const baseUrl = ".api.riotgames.com"
 //Riot API calls that get data within this file
 
 //Gets match history for a given account ID
-var getMatchHistory =  function(accountid) {
-    
+var getMatchHistory =  function(region, accountId) {
+    console.log('returning promise');
+    return new Promise((resolve, reject) => {
+        var matchHistoryUrl = "https://" + region + baseUrl + "/lol/match/v3/matchlists/by-account/" + 
+        accountId + "?api_key=" + config.api;
+        console.log(matchHistoryUrl)
+        request(matchHistoryUrl, function(error, response, body) {
+            if (!error && response.statusCode == 200){
+                // console.log(body);
+                resolve(JSON.parse(body));
+            } else {
+                console.log('request failed');
+                console.log(error);
+                reject('request failed:' + matchHistoryUrl);
+            }
+        });
+    });
 };
 
 //Gets match data for a specific match id
-var getSpecificMatchData = function(matchid) {
-    
+var getSpecificMatchData = function(region, matchId) {
+    ///lol/match/v3/matches/{matchId}
 };
 
 //Gets current league information, specifically their current rank
-var getLeague = function(summonerId) {
-
+var getLeague = function(region, summonerId) {
+    ///lol/league/v3/leagues/by-summoner/{summonerId}
 };
 
 //Centralize where all the Riot API call functions are being called
-var dataPuller = function() {
-
+var dataPuller = function(region, accountId, summonerId) {
+    getMatchHistory(region, accountId).then(
+        function(resp) {
+            matches = resp.matches;
+            console.log(matches[35]);
+        }
+    )
+    .catch(
+        function(error) {
+            console.log('promise error' + error);
+        }
+    );
 };
 
 //Takes information and calculates the average over the 20 game match history
@@ -46,11 +70,15 @@ module.exports = {
         request("https://" + playerData, function(error, response, body) {
             if (!error && response.statusCode == 200){
                 console.log(body);
+                bodyAsJson = JSON.parse(body);
+                accountId = bodyAsJson.accountId;
+                summonerId = bodyAsJson.id;
+                dataPuller(region, accountId, summonerId);
             } else {
                 console.log('request failed');
                 console.log(error);
             }
         });
-        console.log('getting data for ' + summoner + ' in ' + region);
+        console.log('getting data for ' + summonerName + ' in ' + region);
     }
 };
