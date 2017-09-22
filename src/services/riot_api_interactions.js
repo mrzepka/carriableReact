@@ -9,28 +9,62 @@ const baseUrl = ".api.riotgames.com"
 //Riot API calls that get data within this file
 
 //Gets match history for a given account ID
+//Returns JSON that is the region and the array of matches
+//associated with the account ID.
 var getMatchHistory =  function(region, accountId) {
-    console.log('returning promise');
     return new Promise((resolve, reject) => {
         var matchHistoryUrl = "https://" + region + baseUrl + "/lol/match/v3/matchlists/by-account/" + 
         accountId + "?api_key=" + config.api;
         console.log(matchHistoryUrl)
-        request(matchHistoryUrl, function(error, response, body) {
+        request(matchHistoryUrl, (error, response, body) => {
             if (!error && response.statusCode == 200){
-                // console.log(body);
-                resolve(JSON.parse(body));
+                respBody = JSON.parse(body);
+                regionAndMatches = {
+                    "matches": respBody.matches,
+                    "region": region
+                };
+                resolve(regionAndMatches);
             } else {
-                console.log('request failed');
-                console.log(error);
-                reject('request failed:' + matchHistoryUrl);
+                reject('request failed: ' + matchHistoryUrl);
             }
         });
     });
 };
 
+var createPromiseForMatchData = function(url) {
+    return new Promise((resolve, reject) => {
+        request(url, (error, response, body) => {
+            if(!error && response.statusCode == 200) {
+                resolve(JSON.parse(body));
+            } else {
+                reject('request failed: ' + url);
+            }
+        });
+    });
+}
+
 //Gets match data for a specific match id
-var getSpecificMatchData = function(region, matchId) {
-    ///lol/match/v3/matches/{matchId}
+var getSpecificMatchData = function(regionAndMatches) {
+    region = regionAndMatches.region;
+    matches = regionAndMatches.matches;
+    requests = [];
+    return new Promise((resolve, reject) => {
+        for (var i = 0; i < 10; i++) {
+            var matchDataApi = "https://" + region + baseUrl + "/lol/match/v3/matches/"
+             + matches[i].gameId + "?api_key=" + config.api;
+            requests.push(createPromiseForMatchData(matchDataApi));
+        }
+        Promise.all(requests).then(
+            function(matchData) {
+                console.log('all promises resolved');
+                resolve(matchData);
+            }
+        ).catch(
+            function(error) {
+                console.log(error);
+            }
+        )
+    });
 };
 
 //Gets current league information, specifically their current rank
@@ -40,10 +74,10 @@ var getLeague = function(region, summonerId) {
 
 //Centralize where all the Riot API call functions are being called
 var dataPuller = function(region, accountId, summonerId) {
-    getMatchHistory(region, accountId).then(
-        function(resp) {
-            matches = resp.matches;
-            console.log(matches[35]);
+    getMatchHistory(region, accountId).then(getSpecificMatchData)
+    .then(
+        (matchData) => {
+            console.log(matchData);
         }
     )
     .catch(
