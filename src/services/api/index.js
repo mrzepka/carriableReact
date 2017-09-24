@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const riot = require('../riot_api_interactions.js');
+const riot = require('../riot_calls/riot_api_interactions.js');
 
 const app = express();
 
