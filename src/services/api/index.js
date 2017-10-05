@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const db = require('../../auxillary/database_interactions.js')
 const riot = require('../riot_calls/riot_api_interactions.js');
+
 
 const app = express();
 
@@ -16,13 +17,22 @@ app.get('/api/formData', (req, res) => {
     riot.getPlayerData(summoner, region)
     .then(stats => {
         console.log(stats);
-        res.sendStatus(200);
+        db.getDataFromDb(stats);
+        res.sendStatus(200);    
     })
     .catch(error => {
         console.log(error);
     });
+    
 });
 
+app.get('/api/playerData', (req, res) => {
+
+});
+
+app.get('/api/allData', (req, res) => {
+    
+});
 //TODO: add request to get data from database "getRankData?"
 
 //TODO: add request to send data to database "writeRankData?"
