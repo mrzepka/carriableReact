@@ -39,8 +39,36 @@ var findRole = function(timelineData) {
 }
 
 var parseImportantData = function(summonerName, matches, league) {
+    var rank = "";
+    var tier = league[0].tier;
+
+    for (var i = 0; i < league[0].entries.length; i++) {
+        if (league[0].entries[i].playerOrTeamName == summonerName) {
+            var curr_rank = league[0].entries[i].rank;
+            switch(curr_rank) {
+                case "I":
+                rank = 1;
+                break;
+                case "II":
+                rank = 2;
+                break;
+                case "III":
+                rank = 3;
+                break;
+                case "IV":
+                rank = 4;
+                break;
+                case "V":
+                rank = 5;
+                break;
+            }
+            break;
+        }
+    }
     //loop through matches:
     var parsedStats = {
+        tier: tier,
+        rank: rank,
         playerStats: {
             kills: 0,
             deaths: 0,
@@ -131,39 +159,6 @@ var parseImportantData = function(summonerName, matches, league) {
         }
     }
     return parsedStats;
-        // findParticipantNumber(summonerName, matches[i])
-        //loop through participants until participant id is equal to
-        //the participant id
-            //participants[i].participantId
-            //store the rest of the data per role
-            //participants[i].stats.kills/assists/deaths
-    //Still need to figure out which information is important..
-    //start with kda to get the db working.
-    //matches.participants[i].timeline.lane/role = lane/role (check for duo_support)
-    //cs/min and csdiff/min deltas are important
-    //damage taken deltas is important
-    //How to compare for junglers?
-    //return something like:
-    //{
-        //rank: 
-        //tier:
-        //playerdata: {
-            //data for player who entered data
-            //role: 
-            //stats
-        //}
-        //roledata: {
-            //jungle: {
-                //kills: k
-                //deaths: d
-                //assists: a
-                //games: 2 (since we will have 2 users data)
-            //},
-            //top: {
-                //...
-            //}
-        //}
-    //}
 }
 
 module.exports = {
