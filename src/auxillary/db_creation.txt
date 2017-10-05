@@ -1,8 +1,8 @@
-CREATE TABLE test (id INTEGER NOT NULL AUTO_INCREMENT, rank TEXT, tier INTEGER, role TEXT, kills INTEGER, deaths INTEGER, assists INTEGER, games INTEGER, PRIMARY KEY(id));
+CREATE TABLE test1 (id INTEGER NOT NULL AUTO_INCREMENT, tier TEXT, rank INTEGER, role TEXT, kills INTEGER, deaths INTEGER, assists INTEGER, games INTEGER, PRIMARY KEY(id));
 
-INSERT INTO test(
-  `rank`,
+INSERT INTO test1(
   `tier`,
+  `rank`,
   `role`,
   `kills`,
   `deaths`,
