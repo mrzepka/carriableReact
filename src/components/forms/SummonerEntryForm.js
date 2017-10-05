@@ -29,10 +29,7 @@ class EntryForm extends Component {
   //Submit form data
   handleSubmit(event) {
     console.log('handling submit');
-    //alert('Summoner submitted: ' + this.state.summoner + ' in ' + this.state.region);
     this.writeToDb(this.state.summoner, this.state.region);
-    //This will need to send the data from the form to a database.
-
     event.preventDefault();
   }
 
