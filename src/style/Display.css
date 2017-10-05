@@ -1,0 +1,16 @@
+.displayBlock {
+    background: blue;
+    width: 400px;
+    height: 50px;
+    border: solid, black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1px;
+}
+
+.displayContainer {
+    margin-top: 5px;
+    background: green;
+    text-align: center;
+}
