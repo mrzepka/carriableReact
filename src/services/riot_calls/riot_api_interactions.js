@@ -1,7 +1,7 @@
 //riot_api_interactions.js
 //Contains all Riot Games API calls
 const request = require('request');
-const config = require( "./riot_config.js");
+const config = require( "../../config.js");
 const calc = require('../../auxillary/calculate_data.js'); //data calc
 
 //Note: Region goes at the beginning of the url
